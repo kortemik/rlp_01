@@ -83,6 +83,43 @@
     <finalName>rlp_01</finalName>
     <plugins>
       <plugin>
+        <groupId>org.apache.rat</groupId>
+        <artifactId>apache-rat-plugin</artifactId>
+        <inherited>false</inherited>
+        <executions>
+          <execution>
+            <phase>test</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <licenses>
+            <license implementation="org.apache.rat.analysis.license.ApacheSoftwareLicense20">
+              <notes>Also allow the license url to be https.</notes>
+              <patterns>
+                <pattern>https://www.apache.org/licenses/LICENSE-2.0</pattern>
+              </patterns>
+            </license>
+          </licenses>
+          <consoleOutput>true</consoleOutput>
+          <excludeSubProjects>false</excludeSubProjects>
+          <excludes>
+            <!-- git -->
+            <exclude>.git/**</exclude>
+            <exclude>.gitattributes</exclude>
+            <exclude>.gitignore</exclude>
+            <exclude>.gitmodules</exclude>
+            <!-- ci -->
+            <exclude>.github/workflows/ci.yaml</exclude>
+            <exclude>.github/workflows/upload_release.yaml</exclude>
+            <!-- readme -->
+            <exclude>README.adoc</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+     <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
         <version>2.2.1</version>
